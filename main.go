@@ -19,9 +19,9 @@ func searchFile(source string, path string, query string) (string, error) {
 	}
 
 	for idx, entry := range entries {
-		fp, _ := filepath.Abs(entry.Name())
+		fp, _ := filepath.Abs(fmt.Sprintf("%s/%s", source, entry.Name()))
 
-		//check if current if the file
+		//check if current path the file
 		if !entry.IsDir() && strings.Compare(entry.Name(), query) == 0 {
 			return fmt.Sprintf("%sFound the file%s: %s", colors.GREEN, colors.RESET, fp), nil
 		} else if idx+1 == len(entries) {
@@ -65,7 +65,7 @@ func main() {
 	if len(args) != 3 {
 		fmt.Printf("%sNot a valid command%s, Correct usages: ", colors.RED, colors.RESET)
 		fmt.Println("\n\tfilehunt <source directory path> <search term>")
-		return 
+		return
 	}
 
 	source_dir := args[1]

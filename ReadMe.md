@@ -15,7 +15,7 @@ Visit the Releases (https://github.com/unim26/filehunt/releases) page and downlo
 Option 2: Install via Go
 If you have Go installed on your machine, you can build and install it directly to your system bin folder:
 
-go install github.com/yourusername/filehunt@latest
+go install github.com/unim26/filehunt@latest
 
 ## Usage
 
