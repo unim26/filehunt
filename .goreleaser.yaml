@@ -5,8 +5,6 @@ project_name: filehunt
 builds:
   - env:
       - CGO_ENABLED=0
-    # Point GoReleaser to where your main.go actually is located
-    main: ./internal/main.go
     goos:
       - linux
       - windows
