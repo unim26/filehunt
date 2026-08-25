@@ -1,6 +1,12 @@
+version: 2
+
+project_name: filehunt
+
 builds:
   - env:
       - CGO_ENABLED=0
+    # Point GoReleaser to where your main.go actually is located
+    main: ./internal/main.go
     goos:
       - linux
       - windows
@@ -10,7 +16,15 @@ builds:
       - arm64
 
 archives:
-  - format: tar.gz
+  - formats:
+      - tar.gz
     format_overrides:
       - goos: windows
-        format: zip
+        formats:
+          - zip
+
+checksum:
+  name_template: 'checksums.txt'
+
+snapshot:
+  name_template: "{{ incpatch .Version }}-SNAPSHOT-{{ .ShortCommit }}"
