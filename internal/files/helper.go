@@ -30,7 +30,6 @@ func SearchFile(sourceDir string, query string) (string, error) {
 	}
 
 	for _, entry := range entries {
-		// Skip hidden files/directories starting with '.'
 		if len(entry.Name()) > 0 && entry.Name()[0] == '.' {
 			continue
 		}
@@ -42,11 +41,9 @@ func SearchFile(sourceDir string, query string) (string, error) {
 
 		// Check if the current entry matches the query
 		if strings.Compare(entry.Name(), query) == 0 {
-			fmt.Println("Found the file:", path)
-			return path, nil // Return immediately, stopping everything!
+			return path, nil
 		}
 
-		// If it's a directory, search recursively and check the result
 		if entry.IsDir() {
 			foundPath, err := SearchFile(path, query)
 			if err == nil && foundPath != "" {
