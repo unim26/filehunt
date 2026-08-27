@@ -23,10 +23,12 @@ func VerifyPath(path string) error {
 }
 
 // search file and return path if search file name is found
-func SearchFile(sourceDir string, query string) (string, error) {
+func SearchFile(sourceDir string, query string) (*[]string, error) {
+	paths := []string{}
+
 	entries, err := os.ReadDir(sourceDir)
 	if err != nil {
-		return "", err
+		return &paths, err
 	}
 
 	for _, entry := range entries {
@@ -36,21 +38,27 @@ func SearchFile(sourceDir string, query string) (string, error) {
 
 		path, err := filepath.Abs(fmt.Sprintf("%s/%s", sourceDir, entry.Name()))
 		if err != nil {
-			return "", err
+			return &paths, err
 		}
 
+		// fmt.Printf("idx: %d, len: %d\n", idx, len(entries))
+		// fmt.Printf("current path:%s\n", path)
 		// Check if the current entry matches the query
 		if strings.Compare(entry.Name(), query) == 0 {
-			return path, nil
+			paths = append(paths, path)
+			// fmt.Printf("%sFound the file%s: %s\n", colors.GREEN, colors.RESET, path)
+			// if idx == len(entries) {
+			// 	return nil
+			// }
 		}
 
 		if entry.IsDir() {
-			foundPath, err := SearchFile(path, query)
-			if err == nil && foundPath != "" {
-				return foundPath, nil
+			ps, err := SearchFile(path, query)
+			if err == nil {
+				paths = append(paths, *ps...)
 			}
 		}
 	}
 
-	return "", fmt.Errorf("%sno file found with name containing %s in %s", colors.RED, query, sourceDir)
+	return &paths, nil
 }

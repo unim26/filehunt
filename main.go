@@ -6,7 +6,6 @@ import (
 
 	"github.com/unim26/filehunt/internal/colors"
 	"github.com/unim26/filehunt/internal/files"
-	"github.com/unim26/filehunt/internal/loading"
 )
 
 func main() {
@@ -29,17 +28,21 @@ func main() {
 		return
 	}
 
-	l := loading.Show(fmt.Sprintf("Searching for file %s.......", searchTerm))
-	path, err := files.SearchFile(sourceDir, searchTerm)
+	// l := loading.Show(fmt.Sprintf("Searching for file %s.......", searchTerm))
+	// defer l.Hide()
+
+	paths, err := files.SearchFile(sourceDir, searchTerm)
 	if err != nil {
-		l.Hide()
+		// l.Hide()
 		fmt.Println(err)
 		return
 	}
 
-	if path != "" {
-		l.Hide()
-		fmt.Printf("%sFound the file%s: %s\n", colors.GREEN, colors.RESET, path)
+	if len(*paths) > 0 {
+		for _, path := range *paths {
+			fmt.Printf("%sFound the file%s: %s\n", colors.GREEN, colors.RESET, path)
+		}
+	} else {
+		fmt.Printf("%sno file found with name containing %s in %s", colors.RED, searchTerm, sourceDir)
 	}
-
 }
