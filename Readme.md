@@ -1,6 +1,6 @@
 # filehunt
 
-A lightning-fast command-line utility for searching files across your system, built with Go.
+`filehunt` is a lightning-fast, cross-platform command-line utility written in Go designed to locate files across your directory structures instantly.
 
 ## Features
 * Speed: Traverses directories efficiently using modern standard libraries.
@@ -24,7 +24,7 @@ Run filehunt by providing the target directory and the file you are looking for.
 Basic Search:
 filehunt [directory_path] [filename]
 
-(More flags and advanced search features are actively in development!)
+(For complete usages instruction check out the usages.md file or use command ```filehunt -h``` or ```filehunt --help```)
 
 ## Contributing
 
