@@ -41,15 +41,9 @@ func SearchFile(sourceDir string, query string) (*[]string, error) {
 			return &paths, err
 		}
 
-		// fmt.Printf("idx: %d, len: %d\n", idx, len(entries))
-		// fmt.Printf("current path:%s\n", path)
 		// Check if the current entry matches the query
 		if strings.Compare(entry.Name(), query) == 0 {
 			paths = append(paths, path)
-			// fmt.Printf("%sFound the file%s: %s\n", colors.GREEN, colors.RESET, path)
-			// if idx == len(entries) {
-			// 	return nil
-			// }
 		}
 
 		if entry.IsDir() {

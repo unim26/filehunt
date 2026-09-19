@@ -24,7 +24,7 @@ go install github.com/unim26/filehunt@latest
 Run filehunt by providing the target directory and the file you are looking for.
 
 Basic Search:
-filehunt [directory_path] [filename]
+filehunt < directory_path > < filename >
 
 (For complete usages instruction check out the usages.md file or use command ```filehunt -h``` or ```filehunt --help```)
 
